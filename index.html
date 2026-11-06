@@ -3,355 +3,518 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ngân Hàng Trắc Nghiệm 100 Câu - Tin Học Văn Phòng</title>
+  <title>Luyện Thi 100 Câu Trắc Nghiệm Tin Học</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-    body{background:#f8fafc;color:#0f172a;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 12px;line-height:1.5}
-    .container{width:100%;max-width:800px;background:#fff;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,.05);border:1px solid #e2e8f0;padding:32px 24px}
-    .header{text-align:center;margin-bottom:28px}
-    .pill{background:#e0e7ff;color:#3730a3;padding:4px 14px;border-radius:99px;font-size:12px;font-weight:700;display:inline-block;margin-bottom:8px}
-    h1{font-size:24px;font-weight:800;color:#1e293b}
-    .sub{color:#64748b;font-size:14px;margin-top:4px}
-    .card{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border:1.5px solid #e2e8f0;border-radius:14px;cursor:pointer;margin-bottom:12px;transition:.2s;background:#fff}
-    .card:hover{border-color:#2563eb;background:#f8fafc;transform:translateY(-2px)}
-    .card-left{display:flex;align-items:center;gap:12px}
-    .icon{font-size:22px;width:42px;height:42px;background:#eff6ff;border-radius:10px;display:flex;align-items:center;justify-content:center}
-    .card h3{font-size:15px;color:#1e293b}
-    .card p{font-size:12px;color:#64748b}
-    .tag{background:#f1f5f9;color:#475569;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600}
-    .options-box{display:flex;gap:16px;background:#f8fafc;padding:12px 16px;border-radius:10px;font-size:13px;color:#475569;margin-top:8px;justify-content:center;flex-wrap:wrap}
-    .nav{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #e2e8f0;margin-bottom:16px}
-    .btn-link{background:none;border:none;color:#2563eb;font-weight:600;cursor:pointer;font-size:14px}
-    .timer{background:#f1f5f9;padding:4px 12px;border-radius:20px;font-weight:700;font-size:13px}
-    .progress{width:100%;height:6px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin-bottom:20px}
-    .bar{height:100%;background:#2563eb;width:0%;transition:width .3s}
-    .q-title{font-size:17px;font-weight:700;margin:12px 0 16px}
-    .opt{display:flex;align-items:center;gap:12px;width:100%;padding:12px 16px;background:#fff;border:1.5px solid #e2e8f0;border-radius:10px;cursor:pointer;margin-bottom:10px;font-size:14px;text-align:left;transition:.2s}
-    .opt:hover:not(:disabled){border-color:#94a3b8;background:#f8fafc}
-    .opt-badge{width:26px;height:26px;border-radius:6px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0}
-    .opt.selected{border-color:#2563eb;background:#eff6ff}
-    .opt.selected .opt-badge{background:#2563eb;color:#fff}
-    .opt.correct{border-color:#16a34a!important;background:#f0fdf4!important;color:#14532d!important}
-    .opt.correct .opt-badge{background:#16a34a!important;color:#fff!important}
-    .opt.wrong{border-color:#dc2626!important;background:#fef2f2!important;color:#7f1d1d!important}
-    .opt.wrong .opt-badge{background:#dc2626!important;color:#fff!important}
-    .exp{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 16px;font-size:13px;color:#166534;margin-top:14px;display:none}
-    .btn-group{display:flex;justify-content:space-between;margin-top:20px}
-    .btn{padding:8px 18px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;border:none}
-    .btn-sub{background:#f1f5f9;color:#475569}
-    .btn-pri{background:#2563eb;color:#fff}
-    .btn-green{background:#16a34a;color:#fff}
-    .palette{display:grid;grid-template-columns:repeat(auto-fill,minmax(32px,1fr));gap:6px;margin-top:16px;padding-top:16px;border-top:1px dashed #e2e8f0}
-    .p-item{height:32px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;font-weight:600;cursor:pointer}
-    .p-item.active{outline:2px solid #2563eb}
-    .p-item.correct{background:#dcfce7;color:#15803d;border-color:#86efac}
-    .p-item.wrong{background:#fee2e2;color:#b91c1c;border-color:#fca5a5}
-    .result{text-align:center;padding:20px 0}
-    .circle{width:110px;height:110px;border-radius:50%;background:#eff6ff;border:3px solid #2563eb;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 16px}
-    .score{font-size:28px;font-weight:800;color:#2563eb}
+    :root {
+      --primary: #4338ca;
+      --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+      --primary-light: #e0e7ff;
+      --success: #059669;
+      --success-bg: #ecfdf5;
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+      --bg: #f1f5f9;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --border: #e2e8f0;
+      --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 30px 16px;
+      background: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container { width: 100%; max-width: 780px; }
+    .card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 36px 32px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .menu-header { text-align: center; margin-bottom: 28px; }
+    .badge-top {
+      display: inline-block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      margin-bottom: 12px;
+    }
+    .menu-header h1 { margin: 0 0 8px 0; font-size: 1.75rem; font-weight: 700; }
+    .menu-header p { margin: 0; color: var(--text-sub); font-size: 0.95rem; }
+
+    .module-list { display: flex; flex-direction: column; gap: 14px; }
+    .btn-module {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 18px 22px;
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--text-main);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-module:hover {
+      border-color: var(--primary);
+      background: #faf5ff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.12);
+      color: var(--primary);
+    }
+    .btn-module .module-tag {
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--text-sub);
+    }
+
+    .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .btn-back {
+      background: none;
+      border: none;
+      font-family: inherit;
+      color: var(--text-sub);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 6px 10px;
+      border-radius: 8px;
+    }
+    .btn-back:hover { background: var(--bg); color: var(--primary); }
+    .score-badge {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 5px 12px;
+      border-radius: 9999px;
+    }
+
+    .progress-track { width: 100%; height: 6px; background: #e2e8f0; border-radius: 10px; overflow: hidden; margin-bottom: 24px; }
+    .progress-bar { height: 100%; width: 0%; background: var(--primary-gradient); transition: width 0.35s ease; }
+
+    .question-title { font-size: 1.22rem; font-weight: 700; line-height: 1.55; margin-bottom: 24px; color: #0f172a; }
+    .options-box { display: flex; flex-direction: column; gap: 12px; }
+    .btn-opt {
+      width: 100%;
+      text-align: left;
+      padding: 16px 20px;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      background: #ffffff;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.98rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: all 0.15s ease;
+      line-height: 1.45;
+    }
+    .btn-opt:hover:not(:disabled) { border-color: #94a3b8; background: #f8fafc; }
+    .btn-opt .opt-letter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 7px;
+      background: var(--bg);
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .btn-opt.correct { background: var(--success-bg) !important; border-color: var(--success) !important; color: #064e3b !important; font-weight: 600; }
+    .btn-opt.correct .opt-letter { background: var(--success); color: #ffffff; }
+    .btn-opt.wrong { background: var(--danger-bg) !important; border-color: var(--danger) !important; color: #7f1d1d !important; }
+    .btn-opt.wrong .opt-letter { background: var(--danger); color: #ffffff; }
+
+    .feedback-panel {
+      margin-top: 20px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border-left: 4px solid var(--primary);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      display: none;
+    }
+    .feedback-panel.show { display: block; }
+
+    .bottom-row { margin-top: 28px; display: flex; justify-content: flex-end; }
+    .btn-action {
+      padding: 13px 28px;
+      background: var(--primary-gradient);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    }
+    .btn-action:disabled { background: #cbd5e1; box-shadow: none; cursor: not-allowed; }
+
+    .result-box { text-align: center; padding: 20px 0; }
+    .score-circle {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px auto;
+      font-weight: 700;
+      font-size: 2.2rem;
+    }
+    .score-circle span { font-size: 0.85rem; font-weight: 600; color: var(--text-sub); }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div id="home">
-      <div class="header">
-        <span class="pill">HỌC LIỆU TIN HỌC CHUẨN</span>
-        <h1>Ngân Hàng Trắc Nghiệm Ôn Tập</h1>
-        <p class="sub">Hệ thống hỗ trợ ôn luyện 100 câu trắc nghiệm Tin học văn phòng & đại cương</p>
-      </div>
 
-      <div class="card" onclick="startQuiz(1)">
-        <div class="card-left">
-          <div class="icon">📖</div>
-          <div><h3>Bài 1: Phần Cứng, RAM, Phím Tắt Word & Cơ Bản Excel</h3><p>Câu 01 – Câu 25</p></div>
-        </div>
-        <span class="tag">25 câu</span>
+<div class="container">
+  <div class="card">
+    
+    <!-- MENU 4 BÀI THI -->
+    <div id="menu-view">
+      <div class="menu-header">
+        <span class="badge-top">100 Câu Hỏi Trắc Nghiệm Tin Học</span>
+        <h1>Bộ Đề Ôn Tập 4 Bài Chuẩn</h1>
+        <p>Mỗi bài 25 câu hỏi • Tự động xáo trộn câu & đáp án ngẫu nhiên</p>
       </div>
-
-      <div class="card" onclick="startQuiz(2)">
-        <div class="card-left">
-          <div class="icon">💻</div>
-          <div><h3>Bài 2: Webpage, PowerPoint, Soạn Thảo Word & Hàm Excel</h3><p>Câu 26 – Câu 50</p></div>
-        </div>
-        <span class="tag">25 câu</span>
-      </div>
-
-      <div class="card" onclick="startQuiz(3)">
-        <div class="card-left">
-          <div class="icon">📊</div>
-          <div><h3>Bài 3: Hàm Logic, Tốc Độ Mạng, Cổng Giao Tiếp & Định Dạng</h3><p>Câu 51 – Câu 75</p></div>
-        </div>
-        <span class="tag">25 câu</span>
-      </div>
-
-      <div class="card" onclick="startQuiz(4)">
-        <div class="card-left">
-          <div class="icon">🎯</div>
-          <div><h3>Bài 4: Thao Tác Cột, Phím Tắt, Ký Tự Đại Diện & Hàm Chuỗi</h3><p>Câu 76 – Câu 100</p></div>
-        </div>
-        <span class="tag">25 câu</span>
-      </div>
-
-      <div class="card" onclick="startQuiz('all')" style="border-color:#2563eb;background:#eff6ff">
-        <div class="card-left">
-          <div class="icon" style="background:#dbeafe">⚡</div>
-          <div><h3 style="color:#1d4ed8">Thi thử ngẫu nhiên toàn bộ 100 câu</h3><p>Tổng hợp kiểm tra toàn diện 4 phần</p></div>
-        </div>
-        <span class="tag" style="background:#2563eb;color:#fff">100 câu</span>
-      </div>
-
-      <div class="options-box">
-        <label><input type="checkbox" id="shuf-check" checked> Xáo trộn câu hỏi</label>
-        <label><input type="checkbox" id="inst-check" checked> Xem giải thích ngay sau khi chọn</label>
+      <div class="module-list">
+        <button class="btn-module" onclick="startModule('bai1')">
+          <span>📝 Bài 1: Câu 01 – Câu 25 (Tổng hợp căn bản)</span>
+          <span class="module-tag">25 câu</span>
+        </button>
+        <button class="btn-module" onclick="startModule('bai2')">
+          <span>📝 Bài 2: Câu 26 – Câu 50 (Word, Excel & PowerPoint)</span>
+          <span class="module-tag">25 câu</span>
+        </button>
+        <button class="btn-module" onclick="startModule('bai3')">
+          <span>📝 Bài 3: Câu 51 – Câu 75 (Hàm Logic & Kỹ thuật văn phòng)</span>
+          <span class="module-tag">25 câu</span>
+        </button>
+        <button class="btn-module" onclick="startModule('bai4')">
+          <span>📝 Bài 4: Câu 76 – Câu 100 (Thao tác nâng cao & Ôn tập)</span>
+          <span class="module-tag">25 câu</span>
+        </button>
       </div>
     </div>
 
-    <div id="quiz" style="display:none">
-      <div class="nav">
-        <button class="btn-link" onclick="exitHome()">← Về danh sách bài</button>
-        <span id="quiz-title" style="font-weight:700"></span>
-        <div class="timer" id="timer">⏱ 00:00</div>
+    <!-- MÀN HÌNH QUIZ -->
+    <div id="quiz-view" style="display: none;">
+      <div class="quiz-nav">
+        <button class="btn-back" onclick="returnToMenu()">← Thoát ra danh sách bài</button>
+        <div class="score-badge" id="hud-score">Điểm: 0</div>
       </div>
-      <div class="progress"><div class="bar" id="p-bar"></div></div>
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <span id="q-meta" style="font-size:12px;font-weight:700;color:#2563eb"></span>
+
+      <div class="progress-track">
+        <div class="progress-bar" id="progress-bar"></div>
       </div>
-      <h2 class="q-title" id="q-title"></h2>
-      <div id="opt-box"></div>
-      <div class="exp" id="exp-box"></div>
-      <div class="btn-group">
-        <button class="btn btn-sub" id="btn-prev" onclick="prevQ()">Câu trước</button>
-        <div>
-          <button class="btn btn-pri" id="btn-next" onclick="nextQ()">Câu tiếp</button>
-          <button class="btn btn-green" id="btn-sub" onclick="submitQ()" style="display:none">Nộp bài</button>
-        </div>
+
+      <div class="question-title" id="question-text">Câu hỏi đang tải...</div>
+      <div class="options-box" id="options-box"></div>
+      <div class="feedback-panel" id="feedback-panel"></div>
+
+      <div class="bottom-row">
+        <button class="btn-action" id="btn-next" onclick="nextQuestion()" disabled>Câu tiếp theo →</button>
       </div>
-      <div class="palette" id="pal"></div>
     </div>
 
-    <div id="res" class="result" style="display:none">
-      <div class="circle">
-        <div class="score" id="r-score">0/0</div>
-        <div style="font-size:12px;color:#64748b" id="r-pct">0%</div>
+    <!-- KẾT QUẢ -->
+    <div id="result-view" class="result-box" style="display: none;">
+      <div class="score-circle">
+        <div id="final-percent">100%</div>
+        <span>Chính xác</span>
       </div>
-      <h2>Hoàn thành bài ôn tập!</h2>
-      <div style="display:flex;justify-content:center;gap:12px;margin:20px 0">
-        <div style="background:#f8fafc;padding:10px 18px;border-radius:10px;border:1px solid #e2e8f0">
-          <div style="font-weight:700;color:#16a34a" id="r-cor">0</div><div style="font-size:11px;color:#64748b">Số câu đúng</div>
-        </div>
-        <div style="background:#f8fafc;padding:10px 18px;border-radius:10px;border:1px solid #e2e8f0">
-          <div style="font-weight:700;color:#dc2626" id="r-wrg">0</div><div style="font-size:11px;color:#64748b">Số câu sai</div>
-        </div>
-        <div style="background:#f8fafc;padding:10px 18px;border-radius:10px;border:1px solid #e2e8f0">
-          <div style="font-weight:700;color:#0f172a" id="r-time">00:00</div><div style="font-size:11px;color:#64748b">Thời gian làm</div>
-        </div>
+      <h2 style="margin: 0 0 8px 0;">Hoàn thành bài kiểm tra!</h2>
+      <p id="final-summary" style="color: var(--text-sub); margin-bottom: 26px; font-size: 1.05rem;"></p>
+      <div style="display: flex; gap: 12px; justify-content: center;">
+        <button class="btn-action" onclick="retryCurrent()">Làm lại đề này (Đổi câu)</button>
+        <button class="btn-module" style="width: auto; padding: 13px 22px;" onclick="returnToMenu()">Chọn bài khác</button>
       </div>
-      <button class="btn btn-pri" onclick="startQuiz(curPart)">Làm lại</button>
-      <button class="btn btn-sub" onclick="exitHome()" style="margin-left:8px">Về danh sách bài</button>
     </div>
+
   </div>
+</div>
 
-  <script src="https://rawcdn.githack.com/duc990999-cloud/quiz-module-1/main/questions.js" onerror="loadFallbackData()"></script>
-  <script>
-    // Dữ liệu 100 câu hỏi được nhúng trực tiếp
-    const FALLBACK_DATA = [
-      [1,1,"Bộ nhớ truy cập ngẫu nhiên RAM được viết tắt là:",["Read Access Memory","Rewrite Access Memory","Random Access Memory","Secondary Memory"],2,"RAM là viết tắt của Random Access Memory."],
-      [2,1,"Trong Word 2010, chọn Page Layout \\ Page Setup \\ Orientation \\ Landscape nghĩa là:",["Chọn hướng giấy ngang","Chọn hướng giấy dọc","Điều chỉnh lề cho trang giấy","Cả 3 ý trên đều sai"],0,"Landscape là hướng giấy ngang, Portrait là hướng giấy dọc."],
-      [3,1,"Thiết bị nhập gồm:",["Màn hình, máy chiếu","Máy in, webcam","Chuột, bàn phím","Loa, scanner"],2,"Chuột và bàn phím là thiết bị nhập dữ liệu chuẩn."],
-      [4,1,"Trong Windows, chuyển đổi nhanh giữa các cửa sổ đang mở dùng phím:",["Alt + Tab","Alt + Shift","Alt + Home","Alt + Enter"],0,"Alt + Tab chuyển đổi qua lại giữa các cửa sổ ứng dụng."],
-      [5,1,"Trong Word 2010, xóa toàn bộ định dạng kiểu chữ đang chọn nhấn:",["Ctrl + Space","Ctrl + Delete","Ctrl + Enter","Shift + Space"],0,"Ctrl + Space đưa kiểu chữ về định dạng mặc định ban đầu."],
-      [6,1,"Trong Word 2010, sử dụng Tab trong Table (bảng) bằng phím:",["Ctrl + Tab","Tab","Shift + Tab","Alt + Tab"],0,"Nhấn Ctrl + Tab để đặt dấu tab bên trong ô của bảng."],
-      [7,1,"Trong Word 2010, chọn (bôi đen) từ con trỏ về đầu dòng nhấn:",["Alt + F8","Ctrl + End","Shift + Home","Alt + A"],2,"Shift + Home bôi đen từ vị trí con trỏ về đầu dòng."],
-      [8,1,"Trong Word 2010, chèn Textbox trong văn bản chọn:",["Insert \\ Illustrations \\ Text Box","Insert \\ Text \\ Text Box","Home \\ Font \\ Text Box","Home \\ Paragraph \\ Text Box"],1,"Text Box nằm trong nhóm công cụ Text thuộc thẻ Insert."],
-      [9,1,"Trong Word 2010, xóa từ con trỏ tới khoảng trắng phía sau nhấn:",["Ctrl + D","Alt + Delete","Ctrl + Delete","Alt + D"],2,"Ctrl + Delete xóa từ phía sau con trỏ tới hết từ tiếp theo."],
-      [10,1,"Trong Word 2010, để chọn nhiều hình không liền kề cần giữ phím:",["Shift","Ctrl","Alt","Tab"],1,"Giữ Ctrl khi click chuột để chọn nhiều hình không liền nhau."],
-      [11,1,"Trong Word 2010, chuyển chữ thường sang in hoa hoặc ngược lại nhấn:",["Ctrl + Shift + C","Ctrl + Shift + A","Ctrl + Shift + B","Ctrl + Shift + D"],1,"Ctrl + Shift + A dùng để bật/tắt chữ in hoa toàn bộ."],
-      [12,1,"Cổng COM là:",["Cổng nối tiếp","Cổng song song","Cổng vạn năng","Cổng mạng"],0,"COM (Communication port) là cổng giao tiếp nối tiếp."],
-      [13,1,"Thứ tự dung lượng tăng dần nào sau đây là đúng?",["Byte - Bit - KB - MB","Bit - Byte - MB - KB","Bit - Byte - KB - MB","KB - Byte - Bit - MB"],2,"Chuẩn thứ tự: 1 Byte = 8 Bit < 1 KB < 1 MB."],
-      [14,1,"Đơn vị đo tốc độ CPU là?",["Megabit (Mbps)","Kylobyte (KBps)","Kylobit (Kbps)","Gigaherts (GHz)"],3,"Tốc độ xung nhịp CPU đo bằng Hertz (GHz)."],
-      [15,1,"Trong Excel 2010, di chuyển giữa các Sheet dùng phím:",["Page Up; Page Down","Ctrl + Page Up; Ctrl + Page Down","Shift + Page Up; Shift + Page Down","Alt + Page Up; Alt + Page Down"],1,"Ctrl + Page Up/Down chuyển đổi qua lại giữa các sheet."],
-      [16,1,"Trong Excel 2010, ô A1=234, A2=\"235\", A3=236. =SUM(A1:A3) ra kết quả:",["710","705","469","470"],3,"Hàm SUM bỏ qua dạng chuỗi text \"235\", kết quả: 234 + 236 = 470."],
-      [17,1,"Hàm =IF(10<2, \"False\", \"True\") trong Excel 2010 trả về:",["True","False","2024","Sai"],0,"Biểu thức 10 < 2 là SAI nên nhận giá trị thứ ba: True."],
-      [18,1,"Trong Excel 2010, cột C xuất hiện ngay sau cột A là do:",["Cột B đã bị xoá.","Không có cột B.","Cột B bị ẩn (Hide).","Cột B đổi tên khác."],2,"Cột B bị ẩn giấu (Hide) đi."],
-      [19,1,"Địa chỉ nào sau đây là địa chỉ tuyệt đối?",["B$1:D$10","$B1:$D10","B$1$:D$10$","$B$1:$D$10"],3,"Địa chỉ tuyệt đối có dấu $ ở cả tiêu đề cột và chỉ số dòng."],
-      [20,1,"Trong Excel, tìm kiếm dữ liệu (Find) dùng tổ hợp phím:",["Ctrl + H","Ctrl + F","Ctrl + B","Ctrl + P"],1,"Ctrl + F mở hộp thoại tìm kiếm (Find)."],
-      [21,1,"Tự động chèn hàm SUM (AutoSum) vào ô trong Excel 2010 dùng:",["Ctrl + =","Alt + =","Tab + =","Shift + ="],1,"Alt + = là phím tắt của tính năng AutoSum."],
-      [22,1,"Hàm trả về ngày hiện hành của hệ thống (không kèm giờ):",["=NOW()","=DAY(NOW())","=TODAY()","=TODAY(NOW())"],2,"=TODAY() trả về ngày/tháng/năm hiện tại."],
-      [23,1,"Địa chỉ một khối dữ liệu trong Excel được xác định bởi:",["<Góc trên phải>:<Góc dưới trái>","<Góc trên trái>:<Góc dưới phải>","<Góc trên trái>:<Góc dưới trái>","<Góc trên phải>:<Góc dưới phải>"],1,"Địa chỉ vùng lấy từ ô góc trên bên trái đến ô góc dưới bên phải."],
-      [24,1,"Các phép so sánh hoặc phép toán Logic trong Excel cho ra:",["True hoặc False","True","True và False","False"],0,"Biểu thức logic luôn trả về giá trị TRUE hoặc FALSE."],
-      [25,1,"Đâu là địa chỉ hộp thư hợp lệ?",["DaihocTanTrao@gmail.com.vn","DaihocTanTrao@gmail.vn.com","DaihocTanTrao.gmail@com.vn","DaihocTanTrao@com.vn.gmail"],0,"Cấu trúc tên miền hộp thư hợp lệ."],
-      [26,2,"Webpage là gì?",["Tập hợp của nhiều website","Là một phần của website","Cách gọi khác của website","Là một trình duyệt web"],1,"Webpage là một trang web đơn lẻ cấu thành nên website."],
-      [27,2,"Thao tác nào KHÔNG dùng để trình chiếu PowerPoint:",["Slide Show \\ Custom Show.","Slide Show \\ From Beginning.","Nhấn Shift + F5.","Nhấn F5."],0,"Custom Show là cài đặt kịch bản trình chiếu tùy chỉnh."],
-      [28,2,"Chèn nút điều khiển Action Buttons trong PowerPoint 2010 chọn:",["Insert \\ Illustrations \\ Shapes \\ Action Buttons","AutoShapes \\ Action Buttons","Slide Show \\ Action Buttons","Design \\ Action Buttons"],0,"Nút Action Buttons nằm ở hàng dưới cùng trong menu Shapes."],
-      [29,2,"Phần mở rộng mặc định của PowerPoint 2010 là:",["docx","xlsx","html","pptx"],3,"Định dạng tệp trình chiếu là .pptx."],
-      [30,2,"Thêm một slide mới bên dưới slide hiện tại dùng phím:",["Ctrl + A","Ctrl + M","Ctrl + B","Alt + M"],1,"Ctrl + M dùng để chèn thêm một slide mới."],
-      [31,2,"Trong Word 2010, chọn Page Setup \\ Orientation \\ Portrait là:",["Chọn hướng giấy ngang","Chọn hướng giấy dọc","Điều chỉnh lề trang giấy","Thiết lập khổ giấy"],1,"Portrait là hướng giấy in đứng/dọc."],
-      [32,2,"Thiết bị xuất gồm:",["Màn hình, máy in","Scanner, webcam","Chuột, bàn phím","Loa, Micro"],0,"Màn hình và máy in là thiết bị xuất dữ liệu (Output)."],
-      [33,2,"Đóng nhanh cửa sổ ứng dụng đang mở trong Windows dùng phím:",["Alt + Tab","Alt + Shift","Alt + Home","Alt + F4"],3,"Alt + F4 đóng cửa sổ ứng dụng hiện hành."],
-      [34,2,"Sử dụng Tab trong Table (bảng) Word 2010 dùng phím:",["Ctrl + Tab","Tab","Shift + Tab","Alt + Tab"],0,"Nhấn Ctrl + Tab để tạo khoảng thụt tab trong ô bảng."],
-      [35,2,"Bôi đen từ con trỏ về cuối dòng văn bản nhấn:",["Alt + F8","Ctrl + End","Shift + End","Alt + A"],2,"Shift + End chọn văn bản từ con trỏ đến hết dòng."],
-      [36,2,"Chèn một Textbox trong Word 2010 chọn:",["Insert \\ Illustrations \\ Text Box","Insert \\ Text \\ Text Box","Home \\ Font \\ Text Box","Home \\ Paragraph \\ Text Box"],1,"Chọn menu Insert -> Text -> Text Box."],
-      [37,2,"Khi soạn thảo văn bản chưa lưu, nhấn Ctrl + S lần đầu sẽ:",["Mở hộp thoại Save As để đặt tên và lưu","Đóng văn bản ngay lập tức","In văn bản ra máy in","Chuyển sang chế độ đọc"],0,"Lưu lần đầu luôn kích hoạt hộp thoại Save As."],
-      [38,2,"Xóa ký tự từ con trỏ lùi về trước đến dấu cách đầu tiên nhấn:",["Ctrl + Backspace","Alt + Delete","Ctrl + Delete","Alt + D"],0,"Ctrl + Backspace xóa lùi về bên trái tới khoảng trắng gần nhất."],
-      [39,2,"Để chọn nhiều hình (hoặc đối tượng) liền kề nhau giữ phím:",["Shift","Ctrl","Alt","Tab"],0,"Phím Shift hỗ trợ chọn nhiều đối tượng liên tiếp."],
-      [40,2,"Đánh số đầu đoạn văn bản tự động (1, 2, 3...) chọn:",["Insert \\ Symbol","Home \\ Paragraph \\ Bullets","Home \\ Symbol","Home \\ Paragraph \\ Numbering"],3,"Numbering trong thẻ Home dùng để đánh số thứ tự đoạn."],
-      [41,2,"Đổi qua lại giữa chữ thường và chữ hoa nhấn phím:",["Ctrl + Shift + C","Shift + A","Ctrl + Shift + B","Shift + F3"],3,"Shift + F3 thay đổi định dạng chữ hoa/thường (Change Case)."],
-      [42,2,"Xuống dòng mà không muốn tạo đoạn văn mới (Paragraph) nhấn:",["Phím Enter","Shift + Enter","Ctrl + Enter","Tự động xuống dòng"],1,"Shift + Enter ngắt dòng mềm (Line break)."],
-      [43,2,"Ô A2 chứa chuỗi 'TinHoc', ô C2 gõ =UPPER(A2) kết quả là:",["#Value","TINHOC","TinHoc","tinhoc"],1,"Hàm UPPER đổi toàn bộ chuỗi sang chữ in hoa."],
-      [44,2,"Ô A1=234, A2=\"235\", A3=236. Ô A4 gõ =COUNT(A1:A3) ra kết quả:",["3","2","1","0"],1,"COUNT chỉ đếm số thực sự, bỏ qua chuỗi text \"235\" (kết quả là 2)."],
-      [45,2,"Giá trị hàm =IF(10>2, \"False\", \"True\") trong Excel trả về:",["True","False","2024","Đúng"],1,"Biểu thức 10 > 2 là ĐÚNG nên lấy đối số thứ hai: False."],
-      [46,2,"Địa chỉ nào sau đây là địa chỉ tương đối?",["B1:D10","$B1:$D10","B$1$:D$10$","$B$1:$D$10"],0,"B1:D10 không chứa dấu $ nên là địa chỉ tương đối."],
-      [47,2,"Trong Excel, tìm và thay thế dữ liệu (Replace) dùng phím:",["Ctrl + F","Ctrl + H","Ctrl + B","Ctrl + P"],1,"Ctrl + H mở thẻ Replace."],
-      [48,2,"Phím tắt chèn tự động hàm tính tổng (SUM) là:",["Ctrl + =","Alt + =","Tab + =","Shift + ="],1,"Alt + = là phím tắt của AutoSum."],
-      [49,2,"Hàm trả về năm hiện hành của hệ thống:",["=NOW()","=DAY(NOW())","=YEAR(MONTH())","=YEAR(NOW())"],3,"=YEAR(NOW()) trích xuất năm hiện hành."],
-      [50,2,"Ký tự phân cách địa chỉ ô đầu và cuối của một vùng chọn là:",["Dấu chấm phẩy (;)","Dấu phẩy (,)","Dấu gạch ngang (-)","Dấu hai chấm (:)"],3,"Dấu hai chấm (:) liên kết vùng dữ liệu trong Excel."],
-      [51,3,"Toán tử Logic trả về TRUE khi cả hai điều kiện cùng đúng:",["Or","NOT","AND","XOR"],2,"Hàm AND chỉ đúng khi tất cả điều kiện con đều đúng."],
-      [52,3,"Thao tác nào KHÔNG dùng để phát trình chiếu PowerPoint:",["Home \\ New Slide","Slide Show \\ From Beginning","Nhấn Shift + F5","Nhấn F5"],0,"Home \\ New Slide dùng để thêm slide mới."],
-      [53,3,"Chèn Action Buttons vào slide PowerPoint 2010 chọn:",["Insert \\ Illustrations \\ Shapes \\ Action Buttons","AutoShapes \\ Action Buttons","Slide Show \\ Action Buttons","Design \\ Action Buttons"],0,"Nút điều hướng nằm trong nhóm Shapes của Insert."],
-      [54,3,"Định dạng tệp của PowerPoint 2010 là:",["docx","xlsx","html","pptx"],3,"Phần mở rộng chuẩn là .pptx."],
-      [55,3,"Địa chỉ nào sau đây thuộc dịch vụ Google Gmail?",["DaihocTanTrao@gmail.com","DaihocTanTrao@outlook.com","DaihocTanTrao.gmail@company.vn","DaihocTanTrao@com.vn.gmail"],0,"Tên miền thư của Gmail là @gmail.com."],
-      [56,3,"Phím tắt đóng một tab hiện tại trên trình duyệt web là:",["Ctrl + N","Ctrl + W","Shift + T","Alt + F4"],1,"Ctrl + W dùng để đóng tab đang xem."],
-      [57,3,"Dung lượng 2 GB bằng bao nhiêu MB?",["1000 MB","1500 MB","2048 MB","4096 MB"],2,"Theo hệ nhị phân: 2 * 1024 = 2048 MB."],
-      [58,3,"Đơn vị thường dùng để đo tốc độ truyền mạng là:",["Gigahertz (GHz)","Kylobyte (KB)","Megabit/giây (Mbps)","Gigabyte (GB)"],2,"Tốc độ truyền dữ liệu đo bằng Megabit mỗi giây (Mbps)."],
-      [59,3,"Cổng LPT là loại cổng gì?",["Cổng nối tiếp","Cổng song song","Cổng vạn năng","Cổng mạng"],1,"Cổng LPT (Line Print Terminal) là cổng song song."],
-      [60,3,"Bộ nhớ truy cập ngẫu nhiên RAM là viết tắt của:",["Read Access Memory","Rewrite Access Memory","Random Access Memory","Secondary Memory"],2,"Random Access Memory."],
-      [61,3,"Thiết bị xuất gồm:",["Màn hình, máy in","Scanner, webcam","Chuột, bàn phím","Loa, Micro"],0,"Màn hình và máy in là thiết bị hiển thị/xuất."],
-      [62,3,"Cổng LPT thuộc loại:",["Cổng nối tiếp","Cổng song song","Cổng vạn năng","Cổng mạng"],1,"Cổng song song (Parallel port)."],
-      [63,3,"Nhấn Ctrl + S lần đầu với file Word chưa lưu sẽ:",["Mở hộp thoại Save As để đặt tên và lưu","Đóng văn bản ngay lập tức","In văn bản ra máy in","Chuyển sang chế độ đọc"],0,"Hệ thống sẽ bật hộp thoại Save As."],
-      [64,3,"Chọn Page Setup \\ Orientation \\ Portrait nghĩa là:",["Chọn hướng giấy ngang","Chọn hướng giấy dọc","Điều chỉnh lề trang giấy","Thiết lập khổ giấy"],1,"Portrait là hướng dọc."],
-      [65,3,"Phím tắt thoát nhanh ứng dụng đang mở trong Windows:",["Alt + Tab","Alt + Shift","Alt + Home","Alt + F4"],3,"Alt + F4 đóng cửa sổ hiện hành."],
-      [66,3,"Trong Word 2010, xóa toàn bộ định dạng đoạn văn (Paragraph) nhấn:",["Ctrl + Space","Ctrl + Delete","Ctrl + Enter","Ctrl + Q"],3,"Ctrl + Q loại bỏ các định dạng thuộc về đoạn văn bản."],
-      [67,3,"Bôi đen từ con trỏ tới cuối dòng trong Word nhấn:",["Alt + F8","Ctrl + End","Shift + End","Alt + A"],2,"Shift + End chọn tới hết dòng."],
-      [68,3,"Nhấp đúp chuột (Double click) vào một từ trong Word sẽ:",["Chọn đoạn văn bản","Chọn toàn bộ văn bản","Chọn một câu tại vị trí con trỏ","Chọn một từ"],3,"Nhấp đúp bôi đen chính xác 1 từ."],
-      [69,3,"Xóa ký tự từ trước con trỏ lùi về dấu cách đầu tiên nhấn:",["Ctrl + Backspace","Alt + Delete","Ctrl + Delete","Alt + D"],0,"Ctrl + Backspace xóa lùi từng từ."],
-      [70,3,"Chọn nhiều đối tượng liên tiếp trong Word giữ phím:",["Shift","Ctrl","Alt","Tab"],0,"Phím Shift chọn các mục liên tiếp."],
-      [71,3,"Đánh số tự động (1, 2, 3...) đầu đoạn văn bản chọn:",["Insert \\ Symbol","Home \\ Paragraph \\ Bullets","Home \\ Symbol","Home \\ Paragraph \\ Numbering"],3,"Chọn công cụ Numbering trong thẻ Home."],
-      [72,3,"Chuyển đổi kiểu chữ hoa và chữ thường nhấn:",["Ctrl + Shift + C","Shift + A","Ctrl + Shift + B","Shift + F3"],3,"Shift + F3 thay đổi dạng chữ hoa/thường."],
-      [73,3,"Hàm =UPPER(\"TinHoc\") trong Excel trả về:",["#Value","TINHOC","TinHoc","tinhoc"],1,"Hàm UPPER đổi thành chữ hoa."],
-      [74,3,"A1=234, A2=\"235\", A3=236. =COUNT(A1:A3) nhận kết quả:",["3","2","1","0"],1,"Bỏ qua chuỗi text, kết quả = 2."],
-      [75,3,"Hàm =IF(10>2, \"False\", \"True\") trong Excel trả về:",["True","False","2024","Đúng"],1,"Điều kiện đúng nhận False."],
-      [76,4,"Để hiện lại (Unhide) cột B đang ẩn giữa cột A và C chọn:",["Chọn cột C, Delete Column","Chọn cột A, Format Cells","Chọn cả cột A và C, Home \\ Format \\ Unhide Columns","Data, Sort A to Z"],2,"Bôi đen cả 2 cột kẹp trước và sau rồi chọn Unhide Columns."],
-      [77,4,"Địa chỉ nào dưới đây là địa chỉ tương đối?",["B1:D10","$B1:$D10","B$1$:D$10$","$B$1:$D$10"],0,"B1:D10 không cố định dòng và cột."],
-      [78,4,"Trong Excel, phím tắt để thay thế (Replace) dữ liệu là:",["Ctrl + F","Ctrl + H","Ctrl + B","Ctrl + P"],1,"Ctrl + H kích hoạt công cụ Replace."],
-      [79,4,"Hàm trả về năm hiện hành của hệ thống:",["=NOW()","=DAY(NOW())","=YEAR(MONTH())","=YEAR(NOW())"],3,"=YEAR(NOW()) trả về năm hiện tại."],
-      [80,4,"Ký tự phân cách vùng dữ liệu trong Excel:",["Dấu chấm phẩy (;)","Dấu phẩy (,)","Dấu gạch ngang (-)","Dấu hai chấm (:)"],3,"Dấu hai chấm (:)."],
-      [81,4,"Hàm logic trả về TRUE khi cả hai điều kiện cùng đúng:",["Or","NOT","AND","XOR"],2,"Hàm AND."],
-      [82,4,"Thao tác nào KHÔNG phải để trình chiếu PowerPoint:",["Home \\ New Slide","Slide Show \\ From Beginning","Nhấn Shift + F5","Nhấn F5"],0,"Home \\ New Slide."],
-      [83,4,"Nhân bản (Duplicate) slide hiện tại trong PowerPoint dùng:",["Ctrl + A","Ctrl + D","Ctrl + B","Ctrl + M"],1,"Ctrl + D nhân bản slide hoặc đối tượng đang chọn."],
-      [84,4,"Địa chỉ thư điện tử Gmail hợp lệ là:",["DaihocTanTrao@gmail.com","DaihocTanTrao@outlook.com","DaihocTanTrao.gmail@company.vn","DaihocTanTrao@com.vn.gmail"],0,"DaihocTanTrao@gmail.com."],
-      [85,4,"Website là gì?",["Là một trang web đơn lẻ","Tập hợp nhiều trang web liên quan trên máy chủ","Là một trình duyệt web","Là một công cụ tìm kiếm"],1,"Tập hợp nhiều trang web liên quan được truy cập qua Internet."],
-      [86,4,"Đơn vị đo xung nhịp tốc độ của CPU:",["Megabit (Mbps)","Kylobyte (KBps)","Kylobit (Kbps)","Gigaherts (GHz)"],3,"Gigahertz (GHz)."],
-      [87,4,"Cổng COM là cổng giao tiếp gì?",["Cổng nối tiếp","Cổng song song","Cổng vạn năng","Cổng mạng"],0,"Cổng nối tiếp (Serial port)."],
-      [88,4,"Đơn vị dung lượng tăng dần nào là đúng?",["Byte - Bit - KB - MB","Bit - Byte - MB - KB","Bit - Byte - KB - MB","KB - Byte - Bit - MB"],2,"Bit -> Byte -> KB -> MB."],
-      [89,4,"Page Layout \\ Orientation \\ Landscape nghĩa là:",["Chọn hướng giấy ngang","Chọn hướng giấy dọc","Điều chỉnh lề cho trang giấy","Cả 3 ý trên đều sai"],0,"Hướng giấy nằm ngang."],
-      [90,4,"Thiết bị nhập bao gồm:",["Màn hình, máy chiếu","Máy in, webcam","Chuột, bàn phím","Loa, scanner"],2,"Chuột và bàn phím."],
-      [91,4,"Chuyển đổi nhanh giữa các cửa sổ ứng dụng Windows nhấn:",["Alt + Tab","Alt + Shift","Alt + Home","Alt + Enter"],0,"Alt + Tab."],
-      [92,4,"Ký tự đại diện thay thế cho một nhóm nhiều ký tự:",["~ (dấu ngã)","* (dấu sao)","? (dấu hỏi)",". (dấu chấm)"],1,"Dấu sao (*) đại diện cho chuỗi nhiều ký tự."],
-      [93,4,"Xóa sạch định dạng kiểu chữ trong Word nhấn:",["Ctrl + Space","Ctrl + Delete","Ctrl + Enter","Shift + Space"],0,"Ctrl + Space."],
-      [94,4,"Bôi đen từ con trỏ về đầu dòng nhấn:",["Alt + F8","Ctrl + End","Shift + Home","Alt + A"],2,"Shift + Home."],
-      [95,4,"Xóa từ con trỏ tới hết từ phía sau nhấn:",["Ctrl + D","Alt + Delete","Ctrl + Delete","Alt + D"],2,"Ctrl + Delete."],
-      [96,4,"Chọn nhiều hình không liền nhau trong Word giữ phím:",["Shift","Ctrl","Alt","Tab"],1,"Giữ Ctrl."],
-      [97,4,"Đánh dấu đầu dòng bằng các ký tự đặc biệt chọn:",["Insert \\ Symbol","Home \\ Paragraph \\ Bullets","Page \\ Symbol","File \\ Paragraph \\ Numbering"],1,"Bullets trong thẻ Home."],
-      [98,4,"Bật hoặc tắt chế độ chữ in hoa toàn bộ nhấn:",["Ctrl + Shift + C","Ctrl + Shift + A","Ctrl + Shift + B","Ctrl + Shift + D"],1,"Ctrl + Shift + A."],
-      [99,4,"Hàm =LOWER(\"Tin Học\") trong Excel trả về:",["#Value","TINHOC","TinHoc","tin học"],3,"=LOWER() chuyển toàn bộ thành chữ thường."],
-      [100,4,"Hàm trả về ngày hiện hành (không kèm giờ):",["=NOW()","=DAY(NOW())","=TODAY()","=TODAY(NOW())"],2,"=TODAY()."]
-    ];
+<script>
+const examData = {
+  // BÀI 1: CÂU 1 - 25
+  bai1: [
+    { q: "Bộ nhớ truy cập ngẫu nhiên RAM được viết tắt là:", options: ["Read Access Memory", "Rewrite Access Memory", "Random Access Memory", "Secondary Memory"], correct: 2, explain: "RAM là Random Access Memory." },
+    { q: "Trong Microsoft Word 2010, khi chọn Page Layout\\Page Setup\\Orientation\\Landscape có nghĩa là:", options: ["Chọn hướng giấy ngang", "Chọn hướng giấy dọc", "Điều chỉnh lề cho trang giấy", "Cả 3 ý trên đều sai"], correct: 0, explain: "Landscape là hướng giấy nằm ngang (Portrait là dọc)." },
+    { q: "Thiết bị nhập gồm:", options: ["Màn hình, máy chiếu", "Máy in, webcam", "Chuột, bàn phím", "Loa, scanner"], correct: 2, explain: "Chuột và bàn phím dùng nhập dữ liệu vào máy tính." },
+    { q: "Trong Windows, muốn chuyển đổi nhanh giữa các cửa sổ đang mở, sử dụng tổ hợp phím:", options: ["Alt + Tab", "Alt + Shift", "Alt + Home", "Alt + Enter"], correct: 0, explain: "Alt + Tab dùng để luân chuyển giữa các cửa sổ đang chạy." },
+    { q: "Trong Word 2010, để xóa bỏ toàn bộ định dạng kiểu chữ đang chọn, nhấn tổ hợp phím:", options: ["Ctrl + Space", "Ctrl + Delete", "Ctrl + Enter", "Shift + Space"], correct: 0, explain: "Ctrl + Space (Clear Formatting) khôi phục font chữ về mặc định." },
+    { q: "Trong Word 2010, để sử dụng dấu Tab bên trong ô của Bảng (Table), ta dùng:", options: ["Ctrl + Tab", "Tab", "Shift + Tab", "Alt + Tab"], correct: 0, explain: "Nhấn Tab thông thường sẽ nhảy ô, muốn thụt lề bằng Tab trong ô phải nhấn Ctrl + Tab." },
+    { q: "Trong Word 2010, cách nhanh nhất để chọn (bôi đen) từ con trỏ về đầu dòng là:", options: ["Alt + F8", "Ctrl + End", "Shift + Home", "Alt + A"], correct: 2, explain: "Shift + Home bôi đen từ vị trí hiện tại về đầu dòng." },
+    { q: "Trong Word 2010, để chèn một Textbox trong văn bản, ta chọn:", options: ["Insert\\Illustrations\\Text Box", "Insert\\Text\\Text Box", "Home\\Font\\Text Box", "Home\\Paragraph\\Text Box"], correct: 1, explain: "TextBox nằm ở thẻ Insert -> nhóm Text." },
+    { q: "Trong Word 2010, muốn xóa tất cả ký tự từ sau con trỏ đến khi gặp khoảng trắng đầu tiên, nhấn:", options: ["Ctrl + D", "Alt + Delete", "Ctrl + Delete", "Alt + D"], correct: 2, explain: "Ctrl + Delete xóa cả từ đứng sau con trỏ." },
+    { q: "Trong Word 2010, để chọn nhiều hình không liền kề thì cần giữ thêm phím nào:", options: ["Shift", "Ctrl", "Alt", "Tab"], correct: 1, explain: "Giữ phím Ctrl cho phép chọn nhiều hình vẽ rời rạc." },
+    { q: "Trong Word 2010, để chuyển đổi chữ thường thành chữ in hoa (hoặc ngược lại) có thể dùng:", options: ["Ctrl + Shift + C", "Ctrl + Shift + A", "Ctrl + Shift + B", "Ctrl + Shift + D"], correct: 1, explain: "Ctrl + Shift + A đổi nhanh chữ thường thành in hoa toàn bộ (hoặc dùng Shift + F3)." },
+    { q: "Cổng COM là:", options: ["Cổng nối tiếp", "Cổng song song", "Cổng vạn năng", "Cổng mạng"], correct: 0, explain: "COM (Communication port) là cổng truyền thông nối tiếp (Serial Port)." },
+    { q: "Theo thứ tự đơn vị dung lượng tăng dần nào sau đây là đúng?", options: ["Byte - Bit - KB - MB", "Bit - Byte - MB - KB", "Bit - Byte - KB - MB", "KB - Byte - Bit - MB"], correct: 2, explain: "Thứ tự tăng dần: Bit < Byte < KB < MB." },
+    { q: "Đơn vị đo tốc độ xung nhịp xử lý của CPU là:", options: ["Megabit (Mbps)", "Kylobyte (KBps)", "Kylobit (Kbps)", "Gigahertz (GHz)"], correct: 3, explain: "Tốc độ xử lý của CPU tính bằng GHz hoặc MHz." },
+    { q: "Trong Excel 2010, di chuyển nhanh từ Sheet này sang Sheet khác bằng tổ hợp phím:", options: ["Page Up / Page Down", "Ctrl + Page Up / Ctrl + Page Down", "Shift + Page Up / Shift + Page Down", "Alt + Page Up / Alt + Page Down"], correct: 1, explain: "Ctrl + Page Up / Page Down dùng để chuyển đổi qua lại giữa các trang tính." },
+    { q: "Trong Excel, giả sử A1=234, A2=\"235\", A3=236. Công thức =SUM(A1:A3) cho kết quả:", options: ["710", "705", "469", "470"], correct: 3, explain: "\"235\" là dạng chuỗi văn bản trong mảng tham chiếu nên hàm SUM bỏ qua: 234 + 236 = 470." },
+    { q: "Giá trị trả về của hàm =IF(10<2, \"False\", \"True\") trong Excel là:", options: ["True", "False", "2024", "Sai"], correct: 0, explain: "10 < 2 là Sai (False) nên nhận vế đằng sau là chuỗi \"True\"." },
+    { q: "Trong Excel, cột C xuất hiện ngay sau cột A là do:", options: ["Cột B trong Excel đã bị xoá", "Trong Excel không có cột B", "Cột B bị ẩn (Hide)", "Cột B bị đổi thành tên khác"], correct: 2, explain: "Cột B đã bị ẩn giấu (Hide)." },
+    { q: "Trong Excel 2010, địa chỉ nào sau đây là địa chỉ tuyệt đối?", options: ["B$1:D$10", "$B1:$D10", "B$1$:D$10$", "$B$1:$D$10"], correct: 3, explain: "Địa chỉ tuyệt đối có dấu $ trước cả cột và dòng ($B$1:$D$10)." },
+    { q: "Trong Microsoft Excel, để tìm kiếm (Find) dữ liệu, ta dùng tổ hợp phím:", options: ["Ctrl + H", "Ctrl + F", "Ctrl + B", "Ctrl + P"], correct: 1, explain: "Ctrl + F dùng để tìm kiếm (Find)." },
+    { q: "Trong Excel 2010, tổ hợp phím nào tự động chèn nhanh hàm SUM vào ô hiện tại?", options: ["Ctrl + =", "Alt + =", "Tab + =", "Shift + ="], correct: 1, explain: "Alt + '=' là phím tắt của tính năng AutoSum." },
+    { q: "Hàm nào có tác dụng trả về ngày tháng năm hiện hành của hệ thống (không kèm giờ):", options: ["=NOW()", "=DAY(NOW())", "=TODAY()", "=TODAY(NOW())"], correct: 2, explain: "=TODAY() trả về ngày tháng năm; =NOW() trả về cả ngày và giờ." },
+    { q: "Địa chỉ của một khối dữ liệu vùng trong Excel được xác định bởi:", options: ["<Địa chỉ ô đầu tiên góc trên phải>:<Địa chỉ ô cuối cùng góc dưới trái>", "<Địa chỉ ô đầu tiên góc trên trái>:<Địa chỉ ô cuối cùng góc dưới phải>", "<Địa chỉ ô đầu tiên góc trên trái>:<Địa chỉ ô cuối cùng góc dưới trái>", "<Địa chỉ ô đầu tiên góc trên phải>:<Địa chỉ ô cuối cùng góc dưới phải>"], correct: 1, explain: "Chuẩn vùng: Ô góc trên bên trái : Ô góc dưới bên phải." },
+    { q: "Các phép toán so sánh hoặc logic trong Excel bao giờ cũng cho kết quả là:", options: ["True hoặc False", "True", "True và False", "False"], correct: 0, explain: "Kết quả so sánh logic luôn là một giá trị Boolean: TRUE hoặc FALSE." },
+    { q: "Hãy cho biết, đâu là địa chỉ Gmail hợp lệ theo đúng cấu trúc?", options: ["DaihocTanTrao@gmail.com", "Daihoc Tan Trao@gmail.vn.com", "DaihocTanTrao.gmail@com.vn", "DaihocTanTrao@com.vn.gmail"], correct: 0, explain: "Gmail chuẩn có đuôi @gmail.com và không chứa dấu cách." }
+  ],
 
-    let QUESTIONS = FALLBACK_DATA;
-    function loadFallbackData() { QUESTIONS = FALLBACK_DATA; }
+  // BÀI 2: CÂU 26 - 50
+  bai2: [
+    { q: "Webpage là gì?", options: ["Là tập hợp của nhiều website", "Là một phần (trang đơn lẻ) của website", "Là cách gọi khác của website", "Là một trình duyệt web"], correct: 1, explain: "Webpage là một trang nội dung thành phần nằm trong website." },
+    { q: "Trong PowerPoint 2010, cách làm nào sau đây không phải để trình chiếu bài thuyết trình:", options: ["Slide Show\\Custom Show", "Slide Show\\From Beginning", "Nhấn tổ hợp phím Shift + F5", "Nhấn phím F5"], correct: 0, explain: "Custom Show dùng để tạo danh sách chiếu tùy biến, không phải lệnh trình chiếu trực tiếp." },
+    { q: "Trong PowerPoint 2010, để chèn thêm nút điều khiển (Action Buttons) vào slide, ta chọn:", options: ["Insert\\Illustrations\\Shapes\\Action Buttons", "AutoShapes\\Action Buttons", "Slide Show\\Action Buttons", "Design\\Action Buttons"], correct: 0, explain: "Action Buttons nằm ở cuối danh mục Insert -> Shapes." },
+    { q: "Phần mở rộng mặc định của Microsoft PowerPoint 2010 là gì?", options: ["docx", "xlsx", "html", "pptx"], correct: 3, explain: "Tệp PowerPoint 2010 có đuôi là .pptx." },
+    { q: "Trong PowerPoint 2010, để thêm một slide mới vào bên dưới slide hiện thời, ta bấm:", options: ["Ctrl + A", "Ctrl + M", "Ctrl + B", "Alt + M"], correct: 1, explain: "Ctrl + M dùng để chèn thêm New Slide." },
+    { q: "Trong Word 2010, thao tác chọn Page Layout\\Page Setup\\Orientation\\Portrait có nghĩa là:", options: ["Chọn hướng giấy ngang", "Chọn hướng giấy dọc", "Điều chỉnh lề cho trang giấy", "Thiết lập khổ giấy"], correct: 1, explain: "Portrait là hướng trang giấy in theo chiều dọc." },
+    { q: "Thiết bị xuất gồm các thiết bị nào sau đây?", options: ["Màn hình, máy in", "Scanner, webcam", "Chuột, bàn phím", "Loa, Micro"], correct: 0, explain: "Màn hình và máy in hiển thị/in dữ liệu ra ngoài (Output)." },
+    { q: "Trong hệ điều hành Windows, muốn đóng nhanh cửa sổ ứng dụng đang mở, dùng tổ hợp phím:", options: ["Alt + Tab", "Alt + Shift", "Alt + Home", "Alt + F4"], correct: 3, explain: "Alt + F4 đóng cửa sổ chương trình đang kích hoạt." },
+    { q: "Trong Word 2010, cách nhanh nhất để chọn (bôi đen) từ con trỏ về cuối dòng là:", options: ["Alt + F8", "Ctrl + End", "Shift + End", "Alt + A"], correct: 2, explain: "Shift + End bôi đen từ vị trí con trỏ tới hết dòng hiện tại." },
+    { q: "Trong Word 2010, khi đang soạn thảo văn bản chưa lưu, nhấn Ctrl + S lần đầu sẽ:", options: ["Mở hộp thoại Save As để đặt tên và chọn vị trí lưu", "Đóng văn bản ngay lập tức", "In văn bản ra máy in", "Chuyển sang chế độ đọc"], correct: 0, explain: "Lần lưu đầu tiên hệ thống sẽ mở hộp thoại Save As." },
+    { q: "Trong Word 2010, muốn xóa tất cả ký tự từ trước con trỏ lùi về đến khoảng trắng gần nhất, nhấn:", options: ["Ctrl + Backspace", "Alt + Delete", "Ctrl + Delete", "Alt + D"], correct: 0, explain: "Ctrl + Backspace xóa lùi nguyên một từ." },
+    { q: "Trong Word 2010, để chọn nhiều hình hoặc đối tượng liên tiếp nhau, ta giữ phím:", options: ["Shift", "Ctrl", "Alt", "Tab"], correct: 0, explain: "Giữ phím Shift để chọn các đối tượng liên tiếp." },
+    { q: "Trong Word 2010, muốn đánh số thứ tự đầu đoạn tự động (1, 2, 3...), ta chọn:", options: ["Insert\\Symbol", "Home\\Paragraph\\Bullets", "Home\\Symbol", "Home\\Paragraph\\Numbering"], correct: 3, explain: "Numbering dùng đánh số thứ tự tự động." },
+    { q: "Trong Word 2010, tổ hợp phím chuyên dụng chuyển đổi chữ hoa/thường luân phiên là:", options: ["Ctrl + Shift + C", "Shift + A", "Ctrl + Shift + B", "Shift + F3"], correct: 3, explain: "Shift + F3 chuyển đổi qua lại: chữ thường -> Chữ Đầu Hoa -> CHỮ HOA." },
+    { q: "Khi soạn thảo Word, để ngắt dòng nhưng không tạo đoạn mới (giữ nguyên Paragraph), ta bấm:", options: ["Phím Enter", "Tổ hợp phím Shift + Enter", "Tổ hợp phím Ctrl + Enter", "Word tự động không cần bấm"], correct: 1, explain: "Shift + Enter là ngắt dòng mềm (Line break)." },
+    { q: "Trong Excel 2010, tại ô A2 là 'TinHoc', công thức =UPPER(A2) cho kết quả:", options: ["#Value", "TINHOC", "TinHoc", "tinhoc"], correct: 1, explain: "Hàm UPPER chuyển chuỗi thành chữ in hoa toàn bộ." },
+    { q: "Trong Excel, giả sử A1=234, A2=\"235\", A3=236. Công thức =COUNT(A1:A3) cho kết quả:", options: ["3", "2", "1", "0"], correct: 1, explain: "COUNT chỉ đếm ô số thực thụ, \"235\" là chuỗi nên chỉ đếm được 2." },
+    { q: "Giá trị trả về của hàm =IF(10>2, \"False\", \"True\") trong Excel là:", options: ["True", "False", "2024", "Đúng"], correct: 1, explain: "10 > 2 là Đúng nên nhận giá trị đầu tiên là chuỗi \"False\"." },
+    { q: "Trong Excel 2010, hãy xác định địa chỉ nào sau đây là địa chỉ tương đối:", options: ["B1:D10", "$B1:$D10", "B$1$:D$10$", "$B$1:$D$10"], correct: 0, explain: "B1:D10 không chứa ký tự $ nên là địa chỉ tương đối." },
+    { q: "Trong Microsoft Excel, để thay thế (Replace) dữ liệu, ta dùng tổ hợp phím:", options: ["Ctrl + F", "Ctrl + H", "Ctrl + B", "Ctrl + P"], correct: 1, explain: "Ctrl + H mở cửa sổ tìm kiếm và thay thế (Replace)." },
+    { q: "Hàm nào có tác dụng trả về năm hiện hành của hệ thống máy tính?", options: ["=NOW()", "=DAY(NOW())", "=YEAR(MONTH())", "=YEAR(NOW())"], correct: 3, explain: "=YEAR(NOW()) hoặc =YEAR(TODAY()) trả về năm hiện hành." },
+    { q: "Trong Excel 2010, ký tự phân cách địa chỉ ô đầu và ô cuối trong một khối dữ liệu là:", options: ["Dấu chấm phẩy (;)", "Dấu phẩy (,)", "Dấu gạch ngang (-)", "Dấu hai chấm (:)"], correct: 3, explain: "Dấu hai chấm (:) biểu thị khối liên tục từ ô đầu đến ô cuối." },
+    { q: "Trong Excel 2010, hàm Logic nào trả về TRUE khi và chỉ khi TẤT CẢ điều kiện đều đúng?", options: ["OR", "NOT", "AND", "XOR"], correct: 2, explain: "Hàm AND yêu cầu mọi biểu thức logic đều phải đúng." },
+    { q: "Trong PowerPoint 2010, thao tác nào sau đây KHÔNG PHẢI để trình chiếu slide:", options: ["Home\\New Slide", "Slide Show\\From Beginning", "Nhấn Shift + F5", "Nhấn F5"], correct: 0, explain: "Home\\New Slide là lệnh thêm slide mới." },
+    { q: "Trong các địa chỉ sau, địa chỉ email nào viết đúng chuẩn Gmail?", options: ["DaihocTanTrao@gmail.com", "DaihocTanTrao@outlook.com", "DaihocTanTrao.gmail@company.vn", "DaihocTanTrao@com.vn.gmail"], correct: 0, explain: "Cú pháp tài khoản đúng tên và miền @gmail.com." }
+  ],
 
-    let qList=[],idx=0,ans={},tInt=null,sec=0,curPart=1,isInstant=true;
-    const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
-    
-    function startTimer(){
-      clearInterval(tInt);sec=0;document.getElementById('timer').innerText='⏱ 00:00';
-      tInt=setInterval(()=>{sec++;document.getElementById('timer').innerText=`⏱ ${fmt(sec)}`;},1000);
-    }
-    
-    function startQuiz(p){
-      curPart=p;isInstant=document.getElementById('inst-check').checked;
-      let list = p==='all'? [...QUESTIONS] : QUESTIONS.filter(q=>q[1]===p);
-      if(document.getElementById('shuf-check').checked) list.sort(()=>Math.random()-.5);
-      qList=list;idx=0;ans={};
-      document.getElementById('home').style.display='none';
-      document.getElementById('res').style.display='none';
-      document.getElementById('quiz').style.display='block';
-      document.getElementById('quiz-title').innerText = p==='all'?'100 Câu ngẫu nhiên':`Bài ${p} (Câu ${(p-1)*25+1} - ${p*25})`;
-      renderPal();renderQ();startTimer();
-    }
-    
-    function exitHome(){
-      clearInterval(tInt);
-      document.getElementById('quiz').style.display='none';
-      document.getElementById('res').style.display='none';
-      document.getElementById('home').style.display='block';
-    }
-    
-    function renderPal(){
-      const g=document.getElementById('pal');g.innerHTML='';
-      qList.forEach((_,i)=>{
-        const d=document.createElement('div');d.className='p-item';d.id=`p-${i}`;d.innerText=i+1;
-        d.onclick=()=>{idx=i;renderQ();};
-        g.appendChild(d);
-      });
-    }
-    
-    function renderQ(){
-      const q=qList[idx],tot=qList.length,hasAns=ans[idx]!==undefined;
-      document.getElementById('q-meta').innerText=`CÂU ${idx+1} / ${tot}`;
-      document.getElementById('p-bar').style.width=`${((idx+1)/tot)*100}%`;
-      document.getElementById('btn-prev').disabled=idx===0;
-      document.getElementById('btn-next').style.display=idx===tot-1?'none':'inline-block';
-      document.getElementById('btn-sub').style.display=idx===tot-1?'inline-block':'none';
-      document.getElementById('q-title').innerText=`Câu ${q[0]}: ${q[2]}`;
-      
-      const c=document.getElementById('opt-box');c.innerHTML='';
-      const L=['A','B','C','D'];
-      q[3].forEach((t,oIdx)=>{
-        const b=document.createElement('button');b.className='opt';
-        if(ans[idx]===oIdx) b.classList.add('selected');
-        if(hasAns && isInstant){
-          b.disabled=true;
-          if(oIdx===q[4]) b.classList.add('correct');
-          else if(oIdx===ans[idx]) b.classList.add('wrong');
-        }
-        b.innerHTML=`<span class="opt-badge">${L[oIdx]}</span><span>${t}</span>`;
-        b.onclick=()=>{if(!isInstant || !hasAns){ans[idx]=oIdx;renderQ();}};
-        c.appendChild(b);
-      });
-      
-      const exp=document.getElementById('exp-box');
-      if(hasAns && isInstant){
-        exp.style.display='block';
-        exp.innerHTML=`<b>Đáp án đúng: ${L[q[4]]}</b> - ${q[5]}`;
-      }else exp.style.display='none';
-      
-      for(let i=0;i<tot;i++){
-        const el=document.getElementById(`p-${i}`);if(!el)continue;
-        el.className='p-item'+(i===idx?' active':'');
-        if(ans[i]!==undefined){
-          if(isInstant) el.classList.add(ans[i]===qList[i][4]?'correct':'wrong');
-          else el.style.background='#eff6ff';
-        }
-      }
-    }
-    
-    function prevQ(){if(idx>0){idx--;renderQ();}}
-    function nextQ(){if(idx<qList.length-1){idx++;renderQ();}}
-    
-    function submitQ(){
-      const un=qList.length-Object.keys(ans).length;
-      if(un>0 && !confirm(`Bạn còn ${un} câu chưa chọn. Bạn có chắc muốn nộp bài?`)) return;
-      clearInterval(tInt);
-      let cor=0;qList.forEach((q,i)=>{if(ans[i]===q[4])cor++;});
-      document.getElementById('quiz').style.display='none';
-      document.getElementById('res').style.display='block';
-      document.getElementById('r-score').innerText=`${cor}/${qList.length}`;
-      document.getElementById('r-pct').innerText=`${Math.round(cor/qList.length*100)}%`;
-      document.getElementById('r-cor').innerText=cor;
-      document.getElementById('r-wrg').innerText=qList.length-cor;
-      document.getElementById('r-time').innerText=fmt(sec);
-    }
-  </script>
+  // BÀI 3: CÂU 51 - 75
+  bai3: [
+    { q: "Trong Internet Explorer hoặc trình duyệt web, phím tắt để đóng Tab hiện tại là:", options: ["Ctrl + N", "Ctrl + W", "Shift + T", "Alt + F4"], correct: 1, explain: "Ctrl + W dùng để đóng tab đang xem." },
+    { q: "Dung lượng 2 GB bằng bao nhiêu MB?", options: ["1000 MB", "1500 MB", "2048 MB", "4096 MB"], correct: 2, explain: "1 GB = 1024 MB -> 2 GB = 2048 MB." },
+    { q: "Đơn vị thường dùng để đo tốc độ truyền dẫn dữ liệu mạng Internet là:", options: ["Gigahertz (GHz)", "Kylobyte (KB)", "Megabit/giây (Mbps)", "Gigabyte (GB)"], correct: 2, explain: "Tốc độ đường truyền mạng đo bằng Mbps (Megabits per second)." },
+    { q: "Cổng LPT (thường dùng cho máy in kim cũ) là loại cổng gì?", options: ["Cổng nối tiếp", "Cổng song song", "Cổng vạn năng", "Cổng mạng"], correct: 1, explain: "LPT (Line Print Terminal) là cổng song song (Parallel Port)." },
+    { q: "Cụm từ RAM là viết tắt của:", options: ["Read Access Memory", "Rewrite Access Memory", "Random Access Memory", "Secondary Memory"], correct: 2, explain: "RAM: Random Access Memory." },
+    { q: "Bộ thiết bị nào sau đây đều thuộc nhóm thiết bị xuất (Output):", options: ["Màn hình, máy in", "Scanner, webcam", "Chuột, bàn phím", "Loa, Micro"], correct: 0, explain: "Màn hình và máy in là thiết bị đầu ra." },
+    { q: "Trong Word 2010, để xóa bỏ định dạng của một đoạn văn (Paragraph formatting) về mặc định, nhấn:", options: ["Ctrl + Space", "Ctrl + Delete", "Ctrl + Enter", "Ctrl + Q"], correct: 3, explain: "Ctrl + Q xóa toàn bộ định dạng thụt dòng, giãn dòng của đoạn." },
+    { q: "Trong Word 2010, thao tác nhấp đúp chuột (Double-click) vào một từ có tác dụng:", options: ["Chọn cả đoạn văn", "Chọn toàn bộ văn bản", "Chọn một câu", "Chọn nguyên một từ đó"], correct: 3, explain: "Double-click chọn một từ; Triple-click chọn cả đoạn văn." },
+    { q: "Trong Word 2010, để xóa từ đứng trước con trỏ lùi về khoảng trắng, nhấn:", options: ["Ctrl + Backspace", "Alt + Delete", "Ctrl + Delete", "Alt + D"], correct: 0, explain: "Ctrl + Backspace xóa lùi cả một từ phía trước." },
+    { q: "Trong Word 2010, để chuyển đổi chữ hoa/thường luân phiên, dùng:", options: ["Ctrl + Shift + C", "Shift + A", "Ctrl + Shift + B", "Shift + F3"], correct: 3, explain: "Shift + F3 dùng chuyển hoa / thường linh hoạt." },
+    { q: "Tại ô A2 có chữ 'TinHoc', tại C2 gõ =UPPER(A2) thì nhận được kết quả:", options: ["#Value", "TINHOC", "TinHoc", "tinhoc"], correct: 1, explain: "Hàm UPPER chuyển chuỗi thành chữ in hoa." },
+    { q: "Trong Excel, nếu A1=234, A2=\"235\", A3=236 thì =COUNT(A1:A3) ra kết quả:", options: ["3", "2", "1", "0"], correct: 1, explain: "COUNT chỉ đếm giá trị số thực sự, ô A2 là text nên kết quả là 2." },
+    { q: "Trong Excel, để hiện lại (Unhide) cột B khi thấy cột C đứng sát sau cột A, ta làm:", options: ["Chọn cột C, Delete Column", "Chọn cột A, Format Cells", "Chọn cả cột A và C, Home\\Format\\Hide & Unhide\\Unhide Columns", "Data, Sort A to Z"], correct: 2, explain: "Chọn 2 cột bao bọc xung quanh cột bị ẩn rồi chọn Unhide Columns." },
+    { q: "Địa chỉ nào sau đây là địa chỉ tương đối trong Excel?", options: ["B1:D10", "$B1:$D10", "B$1$:D$10$", "$B$1:$D$10"], correct: 0, explain: "B1:D10 không cố định dòng hay cột." },
+    { q: "Trong Excel, tổ hợp phím tắt để thay thế chuỗi ký tự (Replace) là:", options: ["Ctrl + F", "Ctrl + H", "Ctrl + B", "Ctrl + P"], correct: 1, explain: "Ctrl + H kích hoạt hộp thoại Replace." },
+    { q: "Hàm nào trả về năm hiện hành của hệ thống máy tính?", options: ["=NOW()", "=DAY(NOW())", "=YEAR(MONTH())", "=YEAR(NOW())"], correct: 3, explain: "=YEAR(NOW()) trích xuất năm từ ngày giờ hiện tại." },
+    { q: "Ký tự dùng để ngăn cách vùng địa chỉ ô từ đầu đến cuối là:", options: ["Dấu chấm phẩy (;)", "Dấu phẩy (,)", "Dấu gạch ngang (-)", "Dấu hai chấm (:)"], correct: 3, explain: "Ví dụ: A1:C10." },
+    { q: "Toán tử logic nào trong Excel trả về TRUE khi cả hai điều kiện đồng thời đúng:", options: ["OR", "NOT", "AND", "XOR"], correct: 2, explain: "Hàm AND trả về TRUE khi tất cả đối số là TRUE." },
+    { q: "Thao tác nào sau đây KHÔNG dùng để trình chiếu PowerPoint:", options: ["Home\\New Slide", "Slide Show\\From Beginning", "Nhấn Shift + F5", "Nhấn F5"], correct: 0, explain: "Home\\New Slide dùng tạo trang slide mới." },
+    { q: "Trong PowerPoint 2010, để nhân bản (Duplicate) slide hiện thời, ta bấm:", options: ["Ctrl + A", "Ctrl + D", "Ctrl + B", "Ctrl + M"], correct: 1, explain: "Ctrl + D là phím tắt nhân bản slide nhanh." },
+    { q: "Website là gì?", options: ["Là một trang web đơn lẻ", "Là tập hợp nhiều trang web liên quan, lưu trên máy chủ và truy cập qua Internet", "Là một trình duyệt web", "Là một công cụ tìm kiếm"], correct: 1, explain: "Website bao gồm nhiều trang con (webpage) liên kết với nhau." },
+    { q: "Đơn vị đo tốc độ xung nhịp xử lý CPU là:", options: ["Megabit (Mbps)", "Kylobyte (KBps)", "Kylobit (Kbps)", "Gigahertz (GHz)"], correct: 3, explain: "Tốc độ xử lý của chip CPU được tính bằng GHz." },
+    { q: "Cổng COM trên máy tính là loại cổng giao tiếp nào?", options: ["Cổng nối tiếp", "Cổng song song", "Cổng vạn năng", "Cổng mạng"], correct: 0, explain: "Cổng COM là cổng Serial (nối tiếp)." },
+    { q: "Thứ tự dung lượng thông tin tăng dần chính xác là:", options: ["Byte - Bit - KB - MB", "Bit - Byte - MB - KB", "Bit - Byte - KB - MB", "KB - Byte - Bit - MB"], correct: 2, explain: "Bit < Byte (8 bit) < KB (1024 B) < MB (1024 KB)." },
+    { q: "Trong Word 2010, tùy chọn Page Layout\\Page Setup\\Orientation\\Landscape dùng để:", options: ["Chọn hướng giấy ngang", "Chọn hướng giấy dọc", "Căn lề trang giấy", "Đổi màu nền"], correct: 0, explain: "Landscape là chế độ xoay trang giấy nằm ngang." }
+  ],
+
+  // BÀI 4: CÂU 76 - 100
+  bai4: [
+    { q: "Thiết bị nào sau đây thuộc nhóm thiết bị nhập (Input)?", options: ["Màn hình, máy chiếu", "Máy in, webcam", "Chuột, bàn phím", "Loa, scanner"], correct: 2, explain: "Chuột và bàn phím giúp đưa lệnh vào máy tính." },
+    { q: "Để chuyển đổi nhanh giữa các ứng dụng đang chạy trong Windows, ta bấm:", options: ["Alt + Tab", "Alt + Shift", "Alt + Home", "Alt + Enter"], correct: 0, explain: "Alt + Tab luân chuyển giữa các cửa sổ ứng dụng." },
+    { q: "Ký tự đại diện (Wildcard) nào dùng để thay thế cho một nhóm (nhiều) ký tự khi tìm kiếm tệp?", options: ["~ (dấu ngã)", "* (dấu sao)", "? (dấu hỏi)", ". (dấu chấm)"], correct: 1, explain: "Dấu * đại diện cho một chuỗi ký tự bất kỳ; dấu ? chỉ đại diện cho 1 ký tự." },
+    { q: "Trong Word 2010, để xóa bỏ định dạng font chữ của văn bản đang chọn, ta bấm:", options: ["Ctrl + Space", "Ctrl + Delete", "Ctrl + Enter", "Shift + Space"], correct: 0, explain: "Ctrl + Space trả lại định dạng văn bản gốc." },
+    { q: "Cách nhanh nhất để bôi đen từ con trỏ văn bản về đầu dòng là:", options: ["Alt + F8", "Ctrl + End", "Shift + Home", "Alt + A"], correct: 2, explain: "Shift + Home quét khối về đầu dòng." },
+    { q: "Muốn xóa nhanh ký tự từ sau con trỏ đến khi gặp khoảng trắng đầu tiên, nhấn:", options: ["Ctrl + D", "Alt + Delete", "Ctrl + Delete", "Alt + D"], correct: 2, explain: "Ctrl + Delete xóa cả từ kế tiếp phía sau." },
+    { q: "Trong Word 2010, giữ phím nào để chọn nhiều hình không liền kề nhau:", options: ["Shift", "Ctrl", "Alt", "Tab"], correct: 1, explain: "Giữ phím Ctrl cho phép chọn đối tượng rời rạc." },
+    { q: "Muốn đánh dấu đầu đoạn văn bản bằng các ký tự đặc biệt (Bullets), ta chọn:", options: ["Insert\\Symbol", "Home\\Paragraph\\Bullets", "Page\\Symbol", "File\\Paragraph\\Numbering"], correct: 1, explain: "Bullets nằm ở thẻ Home -> nhóm Paragraph." },
+    { q: "Tổ hợp phím nào dùng chuyển đổi chữ thường sang chữ in hoa toàn bộ trong Word:", options: ["Ctrl + Shift + C", "Ctrl + Shift + A", "Ctrl + Shift + B", "Ctrl + Shift + D"], correct: 1, explain: "Ctrl + Shift + A chuyển nhanh thành chữ in HOA." },
+    { q: "Tại ô A2 có giá trị 'Tin Học', công thức =LOWER(A2) cho kết quả là:", options: ["#Value", "TINHOC", "TinHoc", "tin học"], correct: 3, explain: "Hàm LOWER chuyển toàn bộ văn bản về chữ in thường." },
+    { q: "Hàm nào trả về ngày hiện hành của hệ thống máy tính (không kèm theo giờ):", options: ["=NOW()", "=DAY(NOW())", "=TODAY()", "=TODAY(NOW())"], correct: 2, explain: "=TODAY() lấy ngày tháng năm hiện tại." },
+    { q: "Trong PowerPoint 2010, phím F5 dùng để làm gì?", options: ["Lưu bài thuyết trình", "Thêm slide mới", "Bắt đầu trình chiếu từ slide đầu tiên", "Đóng bài trình chiếu"], correct: 2, explain: "F5 trình chiếu từ trang đầu (Shift + F5 chiếu từ trang hiện tại)." },
+    { q: "Trong Excel, địa chỉ $A$1 được gọi là loại địa chỉ nào?", options: ["Địa chỉ tương đối", "Địa chỉ tuyệt đối", "Địa chỉ hỗn hợp", "Địa chỉ 3D"], correct: 1, explain: "Dấu $ trước cả tên cột và chỉ số dòng là địa chỉ tuyệt đối." },
+    { q: "Trong Word 2010, tổ hợp phím Ctrl + E dùng để căn lề gì cho đoạn văn bản?", options: ["Căn trái", "Căn phải", "Căn giữa", "Căn đều hai bên"], correct: 2, explain: "Ctrl + E (Center) dùng để căn giữa văn bản." },
+    { q: "Tổ hợp phím nào dùng để dán (Paste) dữ liệu đã sao chép trong Windows?", options: ["Ctrl + C", "Ctrl + X", "Ctrl + V", "Ctrl + Z"], correct: 2, explain: "Ctrl + V là phím tắt dán dữ liệu." },
+    { q: "Trong Excel, kết quả của công thức =AND(5>2, 4<1) là:", options: ["TRUE", "FALSE", "#VALUE!", "0"], correct: 1, explain: "4 < 1 là Sai nên hàm AND trả về FALSE." },
+    { q: "Trong Excel, kết quả của công thức =OR(5>2, 4<1) là:", options: ["TRUE", "FALSE", "#VALUE!", "1"], correct: 0, explain: "5 > 2 là Đúng nên hàm OR trả về TRUE." },
+    { q: "Trong Word 2010, phím tắt để bôi đậm chữ (Bold) là:", options: ["Ctrl + B", "Ctrl + I", "Ctrl + U", "Ctrl + D"], correct: 0, explain: "Ctrl + B bật/tắt in đậm." },
+    { q: "Trong Word 2010, phím tắt để in nghiêng chữ (Italic) là:", options: ["Ctrl + B", "Ctrl + I", "Ctrl + U", "Ctrl + N"], correct: 1, explain: "Ctrl + I bật/tắt in nghiêng." },
+    { q: "Trong Word 2010, phím tắt để gạch chân văn bản (Underline) là:", options: ["Ctrl + B", "Ctrl + I", "Ctrl + U", "Ctrl + G"], correct: 2, explain: "Ctrl + U gạch chân chữ." },
+    { q: "Thiết bị nào sau đây lưu trữ dữ liệu lâu dài và không bị mất khi ngắt nguồn điện?", options: ["RAM", "Ổ đĩa cứng (HDD/SSD)", "Thanh ghi Registers", "Bộ nhớ Cache L1"], correct: 1, explain: "Ổ cứng là bộ nhớ ngoài không khả biến (Non-volatile)." },
+    { q: "Giao thức chuẩn nào dùng để truyền tải trang web an toàn có mã hóa?", options: ["HTTP", "HTTPS", "FTP", "SMTP"], correct: 1, explain: "HTTPS (Hypertext Transfer Protocol Secure) truyền dữ liệu an toàn có chứng chỉ bảo mật." },
+    { q: "Tệp tin văn bản thuần túy không định dạng thường có phần mở rộng là:", options: [".txt", ".docx", ".pdf", ".rtf"], correct: 0, explain: ".txt là định dạng văn bản thuần (Plain text)." },
+    { q: "Trong Excel, để đếm các ô chứa dữ liệu không rỗng, ta sử dụng hàm nào?", options: ["COUNT", "COUNTA", "COUNTBLANK", "COUNTIF"], correct: 1, explain: "COUNTA đếm tất cả các ô có chứa dữ liệu (cả số và chữ)." },
+    { q: "Trong PowerPoint, để kết thúc bài trình chiếu đang diễn ra và quay lại màn hình soạn thảo, nhấn:", options: ["Phím Esc", "Phím Enter", "Phím Space", "Phím Backspace"], correct: 0, explain: "Phím Escape (Esc) dùng hủy bỏ chế độ trình chiếu." }
+  ]
+};
+
+// THUẬT TOÁN ĐẢO ĐỀ (FISHER-YATES SHUFFLE)
+function shuffle(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+let activeModuleKey = '';
+let currentQuestions = [];
+let currentIdx = 0;
+let userScore = 0;
+let isAnswered = false;
+
+function startModule(key) {
+  activeModuleKey = key;
+  const original = examData[key];
+  
+  // Tự động xáo trộn cả câu hỏi và thứ tự các đáp án
+  currentQuestions = shuffle(original).map(item => {
+    const correctVal = item.options[item.correct];
+    const shuffledOpts = shuffle(item.options);
+    return {
+      q: item.q,
+      options: shuffledOpts,
+      correct: shuffledOpts.indexOf(correctVal),
+      explain: item.explain
+    };
+  });
+
+  currentIdx = 0;
+  userScore = 0;
+
+  document.getElementById("menu-view").style.display = "none";
+  document.getElementById("result-view").style.display = "none";
+  document.getElementById("quiz-view").style.display = "block";
+
+  renderQuestion();
+}
+
+function retryCurrent() {
+  startModule(activeModuleKey);
+}
+
+function returnToMenu() {
+  document.getElementById("quiz-view").style.display = "none";
+  document.getElementById("result-view").style.display = "none";
+  document.getElementById("menu-view").style.display = "block";
+}
+
+function renderQuestion() {
+  isAnswered = false;
+  const q = currentQuestions[currentIdx];
+
+  const pct = (currentIdx / currentQuestions.length) * 100;
+  document.getElementById("progress-bar").style.width = pct + "%";
+  document.getElementById("hud-score").innerText = `Câu ${currentIdx + 1}/${currentQuestions.length} • Đúng: ${userScore}`;
+  document.getElementById("question-text").innerText = `${currentIdx + 1}. ${q.q}`;
+  document.getElementById("btn-next").disabled = true;
+
+  const fb = document.getElementById("feedback-panel");
+  fb.className = "feedback-panel";
+  fb.innerText = "";
+
+  const box = document.getElementById("options-box");
+  box.innerHTML = "";
+
+  const letters = ["A", "B", "C", "D"];
+  q.options.forEach((opt, idx) => {
+    const btn = document.createElement("button");
+    btn.className = "btn-opt";
+    btn.innerHTML = `<span class="opt-letter">${letters[idx]}</span> <span>${opt}</span>`;
+    btn.onclick = () => chooseAnswer(idx, btn);
+    box.appendChild(btn);
+  });
+}
+
+function chooseAnswer(selectedIdx, btnEl) {
+  if (isAnswered) return;
+  isAnswered = true;
+
+  const q = currentQuestions[currentIdx];
+  const allBtns = document.querySelectorAll(".btn-opt");
+
+  if (selectedIdx === q.correct) {
+    btnEl.classList.add("correct");
+    userScore++;
+  } else {
+    btnEl.classList.add("wrong");
+    allBtns[q.correct].classList.add("correct");
+  }
+
+  allBtns.forEach(b => b.disabled = true);
+
+  const fb = document.getElementById("feedback-panel");
+  fb.innerText = "💡 Giải thích: " + q.explain;
+  fb.classList.add("show");
+
+  document.getElementById("hud-score").innerText = `Câu ${currentIdx + 1}/${currentQuestions.length} • Đúng: ${userScore}`;
+  document.getElementById("btn-next").disabled = false;
+}
+
+function nextQuestion() {
+  if (currentIdx < currentQuestions.length - 1) {
+    currentIdx++;
+    renderQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById("progress-bar").style.width = "100%";
+  document.getElementById("quiz-view").style.display = "none";
+  document.getElementById("result-view").style.display = "block";
+
+  const pct = Math.round((userScore / currentQuestions.length) * 100);
+  document.getElementById("final-percent").innerText = pct + "%";
+  document.getElementById("final-summary").innerText = `Bạn đạt ${userScore}/${currentQuestions.length} câu chính xác.`;
+}
+</script>
 </body>
 </html>
